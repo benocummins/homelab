@@ -1,0 +1,14 @@
+# Apple Specific
+.DS_Store
+
+# Docker
+.env
+!.env.example
+
+# Terraform
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+
+# Ansible
+site.retry
