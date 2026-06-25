@@ -1,0 +1,15 @@
+http:
+  routers:
+    prowlarr:
+      rule: "Host(`prowlarr.grid.builtbyjamie.com`)"
+      service: prowlarr-svc
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: cloudflare
+
+  services:
+    prowlarr-svc:
+      loadBalancer:
+        servers:
+          - url: "http://10.17.20.38:9696"

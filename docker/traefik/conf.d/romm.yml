@@ -1,0 +1,15 @@
+http:
+    routers:
+      romm:
+        rule: "Host(`roms.grid.builtbyjamie.com`)"
+        service: romm-svc
+        entryPoints:
+          - websecure
+        tls:
+          certResolver: cloudflare
+
+    services:
+      romm-svc:
+        loadBalancer:
+          servers:
+            - url: "http://10.17.20.51:8080"

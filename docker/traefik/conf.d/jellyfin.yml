@@ -1,0 +1,15 @@
+http:
+    routers:
+      jellyfin:
+        rule: "Host(`jellyfin.grid.builtbyjamie.com`)"
+        service: jellyfin-svc
+        entryPoints:
+          - websecure
+        tls:
+          certResolver: cloudflare
+
+    services:
+      jellyfin-svc:
+        loadBalancer:
+          servers:
+            - url: "http://10.17.20.50:8096"

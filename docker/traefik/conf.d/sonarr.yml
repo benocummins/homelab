@@ -1,0 +1,14 @@
+http:
+    routers:
+      sonarr:
+        rule: "Host(`sonarr.grid.builtbyjamie.com`)"
+        service: sonarr-svc
+        entryPoints:
+          - websecure
+        tls:
+          certResolver: cloudflare
+    services:
+      sonarr-svc:
+        loadBalancer:
+          servers:
+            - url: "http://10.17.20.36:8989"

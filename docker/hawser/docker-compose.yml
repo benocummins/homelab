@@ -1,0 +1,18 @@
+name: hawser
+services:
+  hawser:
+    image: ghcr.io/finsys/hawser:latest
+    container_name: hawser
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - HAWSER_TOKEN=${HAWSER_TOKEN}
+      - HAWSER_SERVER=${HAWSER_SERVER}
+    networks:
+      lan:
+        ipv4_address: ${HAWSER_PRIVATE_IP}
+    restart: unless-stopped
+
+networks:
+  lan:
+    external: true

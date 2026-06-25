@@ -1,0 +1,20 @@
+name: yt-dlp-webui
+services:
+  yt-dlp-webui:
+    image: marcobaobao/yt-dlp-webui:latest
+    container_name: yt-dlp-webui
+    volumes:
+      - /opt/docker/yt-dlp-webui/config:/config
+      - /cache/downloads/complete/music:/downloads
+    environment:
+      - TZ=America/New_York
+    ports:
+      - '3033:3033'
+    networks:
+      lan:
+        ipv4_address: ${YT_DLP_WEBUI_PRIVATE_IP}
+    restart: unless-stopped
+
+networks:
+  lan:
+    external: true
