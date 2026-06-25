@@ -1,0 +1,15 @@
+http:
+  routers:
+    sabnzbd:
+      rule: "Host(`sabnzbd.grid.builtbyjamie.com`)"
+      service: sabnzbd-svc
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: cloudflare
+
+  services:
+    sabnzbd-svc:
+      loadBalancer:
+        servers:
+          - url: "http://10.17.20.30:8080"

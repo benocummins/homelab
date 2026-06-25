@@ -1,0 +1,15 @@
+http:
+  routers:
+    zerobyte:
+      rule: "Host(`zerobyte.grid.builtbyjamie.com`)"
+      service: zerobyte-svc
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: cloudflare
+
+  services:
+    zerobyte-svc:
+      loadBalancer:
+        servers:
+          - url: "http://10.17.20.33:4096"

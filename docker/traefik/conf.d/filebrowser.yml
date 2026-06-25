@@ -1,0 +1,15 @@
+http:
+    routers:
+      filebrowser:
+        rule: "Host(`filebrowser.grid.builtbyjamie.com`)"
+        service: filebrowser-svc
+        entryPoints:
+          - websecure
+        tls:
+          certResolver: cloudflare
+
+    services:
+      filebrowser-svc:
+        loadBalancer:
+          servers:
+            - url: "http://10.17.20.14:8080"

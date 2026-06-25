@@ -1,0 +1,53 @@
+name: romm
+services:
+  romm:
+    image: rommapp/romm:latest
+    container_name: romm
+    depends_on:
+      romm-db:
+        condition: service_healthy
+    volumes:
+      - /opt/docker/romm/resources:/romm/resources
+      - /opt/docker/romm/assets:/romm/assets
+      - /opt/docker/romm/config:/romm/config
+      - /srv/media/roms:/romm/library
+    environment:
+      - DB_HOST=${ROMM_DB_PRIVATE_IP}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWD=${DB_PASSWD}
+      - ROMM_AUTH_SECRET_KEY=${ROMM_AUTH_SECRET_KEY}
+      - SCREENSCRAPER_USER=${SCREENSCRAPER_USER}
+      - SCREENSCRAPER_PASSWORD=${SCREENSCRAPER_PASSWORD}
+      - HASHEOUS_API_ENABLED=true
+      - LAUNCHBOX_API_ENABLED=true
+    networks:
+      lan:
+        ipv4_address: ${ROMM_PRIVATE_IP}
+    restart: unless-stopped
+
+  romm-db:
+    image: mariadb:latest
+    container_name: romm-db
+    volumes:
+      - /opt/docker/romm/db:/var/lib/mysql
+    environment:
+      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      - MARIADB_DATABASE=${DB_NAME}
+      - MARIADB_USER=${DB_USER}
+      - MARIADB_PASSWORD=${DB_PASSWD}
+    networks:
+      lan:
+        ipv4_address: ${ROMM_DB_PRIVATE_IP}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 30s
+      start_interval: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  lan:
+    external: true

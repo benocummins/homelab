@@ -1,0 +1,32 @@
+name: tdarr-node-host01
+services:
+  tdarr-node:
+    image: ghcr.io/haveagitgat/tdarr_node:latest
+    container_name: tdarr-node-host01
+    volumes:
+      - /opt/docker/tdarr-node/configs:/app/configs
+      - /opt/docker/tdarr-node/logs:/app/logs
+      - /srv/media:/media
+      - /cache/tdarr:/temp
+    environment:
+      - TZ=America/New_York
+      - PUID=1000
+      - PGID=1000
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,video,utility
+      - nodeID=${NODE_ID}
+      - nodeIP=${NODE_PRIVATE_IP}
+      - nodePort=8267
+      - serverIP=${SERVER_PRIVATE_IP}
+      - serverPort=8266
+    ports:
+      - '8267:8267'
+    networks:
+      lan:
+        ipv4_address: ${NODE_PRIVATE_IP}
+    restart: unless-stopped
+    runtime: nvidia
+
+networks:
+  lan:
+    external: true

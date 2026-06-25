@@ -1,0 +1,25 @@
+name: zerobyte
+services:
+  zerobyte:
+    image: ghcr.io/nicotsx/zerobyte:v0.37
+    container_name: zerobyte
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /opt/docker/zerobyte/config:/var/lib/zerobyte
+      - /opt/docker:/docker_configs
+      - /backup/zerobyte_target:/backups
+    environment:
+      - TZ=America/New_York
+      - BASE_URL=${BASE_URL}
+      - TRUST_PROXY=true
+      - APP_SECRET=${APP_SECRET}
+    ports:
+      - '4096:4096'
+    networks:
+      lan:
+        ipv4_address: ${ZEROBYTE_PRIVATE_IP}
+    restart: unless-stopped
+
+networks:
+  lan:
+    external: true

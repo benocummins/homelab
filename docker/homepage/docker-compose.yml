@@ -1,0 +1,17 @@
+name: homepage
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    volumes:
+      - /opt/docker/homepage/config:/app/config
+    environment:
+      - HOMEPAGE_ALLOWED_HOSTS=${HOMEPAGE_ALLOWED_HOSTS}
+    networks:
+      lan:
+        ipv4_address: ${HOMEPAGE_PRIVATE_IP}
+    restart: unless-stopped
+
+networks:
+  lan:
+    external: true
