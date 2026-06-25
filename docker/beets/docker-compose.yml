@@ -1,0 +1,23 @@
+name: beets
+services:
+  beets:
+    image: lscr.io/linuxserver/beets:latest
+    container_name: beets
+    volumes:
+      - /opt/docker/beets/config:/config
+      - /srv/media/music:/music
+      - /cache/downloads/complete/music:/downloads
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    ports:
+      - '8337:8337'
+    networks:
+      lan:
+        ipv4_address: ${BEETS_PRIVATE_IP}
+    restart: unless-stopped
+
+networks:
+  lan:
+    external: true

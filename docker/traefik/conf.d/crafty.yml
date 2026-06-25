@@ -1,0 +1,20 @@
+http:
+  routers:
+    crafty:
+      rule: "Host(`crafty.grid.builtbyjamie.com`)"
+      service: crafty-svc
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: cloudflare
+
+  services:
+    crafty-svc:
+      loadBalancer:
+        servers:
+          - url: "https://10.17.20.55:8443"
+        serversTransport: insecureTransport
+
+  serversTransports:
+    insecureTransport:
+      insecureSkipVerify: true

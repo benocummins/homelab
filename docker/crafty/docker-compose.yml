@@ -1,0 +1,21 @@
+name: crafty
+services:
+  crafty:
+    image: registry.gitlab.com/crafty-controller/crafty-4:latest
+    container_name: crafty
+    volumes:
+      - /mnt/fx_backup/crafty:/crafty/backups
+      - /opt/docker/crafty/logs:/crafty/logs
+      - /opt/docker/crafty/servers:/crafty/servers
+      - /opt/docker/crafty/config:/crafty/config
+      - /opt/docker/crafty/import:/crafty/import
+    environment:
+      - TZ=America/New_York
+    networks:
+      lan:
+        ipv4_address: ${CRAFTY_PRIVATE_IP}
+    restart: unless-stopped
+      
+networks:
+  lan:
+    external: true

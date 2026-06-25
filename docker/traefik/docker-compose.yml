@@ -1,0 +1,20 @@
+name: traefik
+services:
+  traefik:
+    image: traefik:v3
+    container_name: traefik
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /opt/docker/traefik/traefik.yml:/traefik.yml:ro
+      - /opt/docker/traefik/conf.d:/conf.d:ro
+      - /opt/docker/traefik/acme.json:/acme.json
+    env_file:
+      - /opt/docker/traefik/.env
+    networks:
+      lan:
+        ipv4_address: ${TRAEFIK_PRIVATE_IP}
+    restart: always
+
+networks:
+  lan:
+    external: true

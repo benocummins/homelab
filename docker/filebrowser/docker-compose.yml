@@ -1,0 +1,21 @@
+name: filebrowser
+services:
+  filebrowser:
+    image: filebrowser/filebrowser:latest
+    container_name: filebrowser
+    volumes:
+      - /cache/downloads:/cache/downloads
+      - /srv/media:/srv/media
+      - /opt/docker/filebrowser:/database
+    environment:
+      - PUID=1000
+      - PGID=1000
+    networks:
+      lan:
+        ipv4_address: ${FILEBROWSER_PRIVATE_IP}
+    command: --database /database/filebrowser.db --config /database/settings.json --address 0.0.0.0 --port 8080
+    restart: unless-stopped
+
+networks:
+  lan:
+    external: true

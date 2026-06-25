@@ -1,0 +1,24 @@
+http:
+      middlewares:
+        ytdlp-slash:
+          redirectRegex:
+            regex: "^https://ytdlp.grid.builtbyjamie.com$"
+            replacement: "https://ytdlp.grid.builtbyjamie.com/"
+            permanent: false
+
+      routers:
+        ytdlp-webui:
+          rule: "Host(`ytdlp.grid.builtbyjamie.com`)"
+          service: ytdlp-svc
+          middlewares:
+            - ytdlp-slash
+          entryPoints:
+            - websecure
+          tls:
+            certResolver: cloudflare
+
+      services:
+        ytdlp-svc:
+          loadBalancer:
+            servers:
+              - url: "http://10.17.20.39:3033"

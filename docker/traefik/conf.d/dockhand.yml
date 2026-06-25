@@ -1,0 +1,15 @@
+http:
+  routers:
+    dockhand:
+      rule: "Host(`dockhand.grid.builtbyjamie.com`)"
+      service: dockhand-svc
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: cloudflare
+
+  services:
+    dockhand-svc:
+      loadBalancer:
+        servers:
+          - url: "http://10.17.20.15:3000"

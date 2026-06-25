@@ -1,0 +1,15 @@
+http:
+  routers:
+    tdarr:
+      rule: "Host(`tdarr.grid.builtbyjamie.com`)"
+      service: tdarr-svc
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: cloudflare
+
+  services:
+    tdarr-svc:
+      loadBalancer:
+        servers:
+          - url: "http://10.17.20.33:8265"

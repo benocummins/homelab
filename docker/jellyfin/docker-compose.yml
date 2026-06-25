@@ -1,0 +1,24 @@
+name: jellyfin
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    volumes:
+      - /opt/docker/jellyfin/config:/config
+      - /srv/media:/media
+      - /cache/jellyfin:/cache
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,video,utility
+    networks:
+      lan:
+        ipv4_address: ${JELLYFIN_PRIVATE_IP}
+    restart: unless-stopped
+    runtime: nvidia
+
+networks:
+  lan:
+    external: true

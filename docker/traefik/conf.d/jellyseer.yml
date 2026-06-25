@@ -1,0 +1,15 @@
+http:
+    routers:
+      jellyseerr:
+        rule: "Host(`jellyseerr.grid.builtbyjamie.com`)"
+        service: jellyseerr-svc
+        entryPoints:
+          - websecure
+        tls:
+          certResolver: cloudflare
+
+    services:
+      jellyseerr-svc:
+        loadBalancer:
+          servers:
+            - url: "http://10.17.20.32:5055"

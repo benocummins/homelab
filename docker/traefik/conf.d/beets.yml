@@ -1,0 +1,15 @@
+http:
+    routers:
+      beets:
+        rule: "Host(`beets.grid.builtbyjamie.com`)"
+        service: beets-svc
+        entryPoints:
+          - websecure
+        tls:
+          certResolver: cloudflare
+
+    services:
+      beets-svc:
+        loadBalancer:
+          servers:
+            - url: "http://10.17.20.52:8337"

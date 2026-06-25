@@ -1,0 +1,15 @@
+http:
+    routers:
+      homepage:
+        rule: "Host(`home.grid.builtbyjamie.com`)"
+        service: homepage-svc
+        entryPoints:
+          - websecure
+        tls:
+          certResolver: cloudflare
+
+    services:
+      homepage-svc:
+        loadBalancer:
+          servers:
+            - url: "http://10.17.20.13:3000"

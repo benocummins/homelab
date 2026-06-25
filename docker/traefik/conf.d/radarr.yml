@@ -1,0 +1,14 @@
+http:
+    routers:
+      radarr:
+        rule: "Host(`radarr.grid.builtbyjamie.com`)"
+        service: radarr-svc
+        entryPoints:
+          - websecure
+        tls:
+          certResolver: cloudflare
+    services:
+      radarr-svc:
+        loadBalancer:
+          servers:
+            - url: "http://10.17.20.37:7878"
