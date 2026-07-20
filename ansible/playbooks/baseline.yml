@@ -1,0 +1,26 @@
+---
+- name: Baseline configuration for all homelab hosts
+  hosts: homelab
+  become: true
+
+  tasks:
+    - name: Ensure all packages are up to date
+      apt:
+        update_cache: true
+        upgrade: yes
+
+    - name: Install common baseline packages
+      apt:
+        name:
+          - curl
+          - git
+          - htop
+          - net-tools
+          - python3.12
+          - unzip
+          - vim
+        state: present
+
+    - name: Set timezone to America/New_York
+      community.general.timezone:
+        name: America/New_York
