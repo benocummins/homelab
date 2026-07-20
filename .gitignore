@@ -11,4 +11,5 @@ terraform.tfstate
 terraform.tfstate.backup
 
 # Ansible
-site.retry
+*.retry
+*vault*pass*
