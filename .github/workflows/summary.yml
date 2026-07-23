@@ -10,12 +10,8 @@ jobs:
     permissions:
       issues: write
       models: read
-      contents: read
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
       - name: Run AI inference
         id: inference
         uses: actions/ai-inference@v1
@@ -28,7 +24,17 @@ jobs:
 
       - name: Comment with AI summary
         run: |
-          gh issue comment $ISSUE_NUMBER --body "$RESPONSE"
+          if [ -z "$RESPONSE" ]; then
+            echo "AI inference returned an empty response; skipping comment."
+            exit 0
+          fi
+
+          BODY="${RESPONSE:0:1000}"
+          if [ "${#RESPONSE}" -gt 1000 ]; then
+            BODY="${BODY}..."
+          fi
+
+          gh issue comment "$ISSUE_NUMBER" --body "$BODY"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
