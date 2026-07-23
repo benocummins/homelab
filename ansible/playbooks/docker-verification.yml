@@ -1,0 +1,18 @@
+---
+- name: Docker verification for all docker hosts
+  hosts: docker_hosts
+
+  tasks:
+    - name: Gather service facts
+      ansible.builtin.service_facts:
+
+    - name: Verify Docker services
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services['docker.service'].state == 'running'
+          - ansible_facts.services['docker.service'].status == 'enabled'
+        success_msg: "Docker service is running and enabled."
+        fail_msg: >-
+          The Docker service on {{ inventory_hostname }} is
+          {{ ansible_facts.services['docker.service'].state }} and
+          {{ ansible_facts.services['docker.service'].status }}.
