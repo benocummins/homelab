@@ -1,0 +1,1 @@
+- 2026-07-22: Enabled "Do not allow bypassing the above settings" on main's branch protection rule. Direct pushes (including from repo owner) are now rejected; all changes require a PR.
