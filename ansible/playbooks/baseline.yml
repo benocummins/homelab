@@ -5,12 +5,12 @@
 
   tasks:
     - name: Ensure all packages are up to date
-      apt:
+      ansible.builtin.apt:
         update_cache: true
-        upgrade: yes
+        upgrade: true
 
     - name: Install common baseline packages
-      apt:
+      ansible.builtin.apt:
         name:
           - curl
           - git
