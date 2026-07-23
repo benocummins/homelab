@@ -1,0 +1,55 @@
+---
+- name: Gather Facts - All Hosts
+  hosts: all
+  gather_facts: true
+  tasks: []
+
+- name: OS Info - All Hosts
+  hosts: all
+  tasks:
+    - name: Show OS Info
+      ansible.builtin.debug:
+        msg: |
+          Hostname: {{ ansible_facts['hostname'] }}
+          FQDN: {{ ansible_facts['fqdn'] }}
+          OS Family: {{ ansible_facts['os_family'] }}
+          Distribution: {{ ansible_facts['distribution'] }}
+          Version: {{ ansible_facts['distribution_version'] }}
+          Kernel: {{ ansible_facts['kernel'] }}
+
+- name: Hardware Info - All Hosts
+  hosts: all
+  tasks:
+    - name: Show Hardware Info
+      ansible.builtin.debug:
+        msg: |
+          CPU Cores: {{ ansible_facts['processor_cores'] }}
+          Total Memory: {{ ansible_facts['memtotal_mb'] }} MB
+          Architecture: {{ ansible_facts['architecture'] }}
+
+- name: Network Info - All Hosts
+  hosts: all
+  tasks:
+    - name: Show Network Info
+      ansible.builtin.debug:
+        msg: |
+          Default IPv4 Address: {{ ansible_facts['default_ipv4'].address }}
+          Default IPv4 Gateway: {{ ansible_facts['default_ipv4'].gateway }}
+          Default IPv4 Interface: {{ ansible_facts['default_ipv4'].interface }}
+          All IPv4 Addresses: {{ ansible_facts['all_ipv4_addresses'] }}
+
+- name: Disk Info - All Hosts
+  hosts: all
+  serial: 1
+  tasks:
+    - name: Show Disk Info
+      ansible.builtin.debug:
+        msg: |
+          "Mount: {{ item.mount }}"
+          "Device: {{ item.device }}"
+          "Available: {{ item.size_available | human_readable  }}"
+          "Total: {{ item.size_total | human_readable }}"
+          "Used: {{ ((item.size_total - item.size_available) / item.size_total * 100) | round(1) }}% used"
+      loop: "{{ ansible_facts['mounts'] | rejectattr('fstype', 'search', '^(squashfs|tmpfs|devtmpfs|vfat)$') | list }}"
+      loop_control:
+        label: "{{ item.mount }}"

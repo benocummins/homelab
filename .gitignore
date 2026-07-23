@@ -1,6 +1,9 @@
 # Apple Specific
 .DS_Store
 
+#VSCode
+.vscode/
+
 # Docker
 .env
 !.env.example
