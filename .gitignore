@@ -4,6 +4,9 @@
 #VSCode
 .vscode/
 
+#Claude
+CLAUDE.md
+
 # Docker
 .env
 !.env.example
