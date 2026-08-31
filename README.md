@@ -1,1 +1,7 @@
-- 2026-07-22: Enabled "Do not allow bypassing the above settings" on main's branch protection rule. Direct pushes (including from repo owner) are now rejected; all changes require a PR.
+# Homelab 
+
+## Actions
+
+### Mirror to GitLab
+
+On each push, there is an action that mirrors this repo to the group on my GitLab as a 'remote backup' due to an increase in performance issues with GitHub lately 
