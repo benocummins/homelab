@@ -1,0 +1,17 @@
+name: Mirror to GitLab
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Mirror repo to GitLab
+        run: |
+          git clone --mirror https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/benocummins/homelab.git repo-mirror
+          cd repo-mirror
+          git push --mirror https://oauth2:${{ secrets.GITLAB_MIRROR_TOKEN }}@gitlab.com/benocummins-github-mirror/homelab.git
