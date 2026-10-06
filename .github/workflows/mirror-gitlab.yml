@@ -14,4 +14,4 @@ jobs:
         run: |
           git clone --bare https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/benocummins/homelab.git repo-mirror
           cd repo-mirror
-          git push --force --prune  https://oauth2:${{ secrets.GITLAB_MIRROR_TOKEN }}@gitlab.com/benocummins-github-mirror/homelab.git 'refs/heads/*:refs/heads/*' 'refs/tags/*:regs/tags/*'
+          git push --force --prune  https://oauth2:${{ secrets.GITLAB_MIRROR_TOKEN }}@gitlab.com/benocummins-github-mirror/homelab.git 'refs/heads/*:refs/heads/*' 'refs/tags/*:refs/tags/*'
