@@ -1,5 +1,23 @@
+# Real config and secrets (never commit)
+.env
+.env.*
+!.env.example
+
+inventory.yml
+!inventory.example.yml
+
+secrets/
+.vault_pass
+*.key
+*.pem
+
+kubeconfig
+*.kubeconfig
+
 # Apple Specific
+*.retry
 .DS_Store
+
 
 #VSCode
 .vscode/
