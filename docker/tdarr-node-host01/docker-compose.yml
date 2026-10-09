@@ -1,7 +1,7 @@
 name: tdarr-node-host01
 services:
   tdarr-node:
-    image: ghcr.io/haveagitgat/tdarr_node:latest
+    image: ghcr.io/haveagitgat/tdarr_node:2.95.01
     container_name: tdarr-node-host01
     volumes:
       - /opt/docker/tdarr-node/configs:/app/configs

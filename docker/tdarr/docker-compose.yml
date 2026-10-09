@@ -1,7 +1,7 @@
 name: tdarr-server
 services:
   tdarr:
-    image: ghcr.io/haveagitgat/tdarr:latest
+    image: ghcr.io/haveagitgat/tdarr:2.95.01
     container_name: tdarr-server
     volumes:
       - /opt/docker/tdarr/server:/app/server
