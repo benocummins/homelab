@@ -13,6 +13,7 @@ services:
     networks:
       lan:
         ipv4_address: ${YT_DLP_WEBUI_PRIVATE_IP}
+        mac_address: ${YT_DLP_WEBUI_MAC}
     restart: unless-stopped
 
 networks:

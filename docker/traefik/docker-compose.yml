@@ -13,6 +13,7 @@ services:
     networks:
       lan:
         ipv4_address: ${TRAEFIK_PRIVATE_IP}
+        mac_address: ${TRAEFIK_MAC}
     restart: always
 
 networks:

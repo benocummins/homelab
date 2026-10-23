@@ -22,6 +22,7 @@ services:
     networks:
       lan:
         ipv4_address: ${NODE_PRIVATE_IP}
+        mac_address: ${NODE_MAC}
     restart: unless-stopped
 
 networks:

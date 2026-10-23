@@ -16,6 +16,7 @@ services:
     networks:
       lan:
         ipv4_address: ${JELLYFIN_PRIVATE_IP}
+        mac_address: ${JELLYFIN_MAC}
     restart: unless-stopped
     runtime: nvidia
 

@@ -27,6 +27,7 @@ services:
     networks:
       lan:
         ipv4_address: ${CRAFTY_PRIVATE_IP}
+        mac_address: ${CRAFTY_MAC}
 
 networks:
   lan:

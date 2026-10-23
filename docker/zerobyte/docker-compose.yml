@@ -18,6 +18,7 @@ services:
     networks:
       lan:
         ipv4_address: ${ZEROBYTE_PRIVATE_IP}
+        mac_address: ${ZEROBYTE_MAC}
     restart: unless-stopped
 
 networks:

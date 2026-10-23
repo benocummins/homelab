@@ -16,6 +16,7 @@ services:
     networks:
       lan:
         ipv4_address: ${BEETS_PRIVATE_IP}
+        mac_address: ${BEETS_MAC}
     restart: unless-stopped
 
 networks:
