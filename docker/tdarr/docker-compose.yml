@@ -18,6 +18,7 @@ services:
     networks:
       lan:
         ipv4_address: ${TDARR_SERVER_PRIVATE_IP}
+        mac_address: ${TDARR_SERVER_MAC}
     restart: unless-stopped
 
 networks:

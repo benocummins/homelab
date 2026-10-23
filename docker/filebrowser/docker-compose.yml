@@ -13,6 +13,7 @@ services:
     networks:
       lan:
         ipv4_address: ${FILEBROWSER_PRIVATE_IP}
+        mac_address: ${FILEBROWSER_MAC}
     command: --database /database/filebrowser.db --config /database/settings.json --address 0.0.0.0 --port 8080
     restart: unless-stopped
 

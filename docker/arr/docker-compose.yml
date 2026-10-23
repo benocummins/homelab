@@ -1,7 +1,7 @@
 name: arr
 services:
   gluetun:
-    image: qmcgaw/gluetun
+    image: qmcgaw/gluetun:v3.41.3
     container_name: gluetun
     environment:
       - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
@@ -14,6 +14,7 @@ services:
     networks:
       lan:
         ipv4_address: ${GLUETUN_PRIVATE_IP}
+        mac_address: ${GLUETUN_MAC}
     restart: always
     cap_add:
       - NET_ADMIN
@@ -27,9 +28,10 @@ services:
     networks:
       lan:
         ipv4_address: ${JELLYSEERR_PRIVATE_IP}
+        mac_address: ${JELLYSEERR_MAC}
     restart: unless-stopped
   prowlarr:
-    image: lscr.io/linuxserver/prowlarr:latest
+    image: lscr.io/linuxserver/prowlarr:2.6.5
     container_name: prowlarr
     volumes:
       - /opt/docker/prowlarr/config:/config
@@ -40,9 +42,10 @@ services:
     networks:
       lan:
         ipv4_address: ${PROWLARR_PRIVATE_IP}
+        mac_address: ${PROWLARR_MAC}
     restart: unless-stopped
   radarr:
-    image: lscr.io/linuxserver/radarr:latest
+    image: lscr.io/linuxserver/radarr:6.4.4
     container_name: radarr
     volumes:
       - /opt/docker/radarr/config:/config
@@ -55,9 +58,10 @@ services:
     networks:
       lan:
         ipv4_address: ${RADARR_PRIVATE_IP}
+        mac_address: ${RADARR_MAC}
     restart: unless-stopped
   sabnzbd:
-    image: lscr.io/linuxserver/sabnzbd:latest
+    image: lscr.io/linuxserver/sabnzbd:5.1.3
     container_name: sabnzbd
     depends_on:
       gluetun:
@@ -73,7 +77,7 @@ services:
     network_mode: "service:gluetun"
     restart: unless-stopped
   sonarr:
-    image: lscr.io/linuxserver/sonarr:latest
+    image: lscr.io/linuxserver/sonarr:4.0.20
     container_name: sonarr
     volumes:
       - /opt/docker/sonarr/config:/config
@@ -86,6 +90,7 @@ services:
     networks:
       lan:
         ipv4_address: ${SONARR_PRIVATE_IP}
+        mac_address: ${SONARR_MAC}
     restart: unless-stopped
   
 networks:

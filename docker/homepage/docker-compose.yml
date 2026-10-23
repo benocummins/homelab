@@ -10,6 +10,7 @@ services:
     networks:
       lan:
         ipv4_address: ${HOMEPAGE_PRIVATE_IP}
+        mac_address: ${HOMEPAGE_MAC}
     restart: unless-stopped
 
 networks:

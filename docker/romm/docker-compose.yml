@@ -24,6 +24,7 @@ services:
     networks:
       lan:
         ipv4_address: ${ROMM_PRIVATE_IP}
+        mac_address: ${ROMM_MAC}
     restart: unless-stopped
 
   romm-db:
@@ -39,6 +40,7 @@ services:
     networks:
       lan:
         ipv4_address: ${ROMM_DB_PRIVATE_IP}
+        mac_address: ${ROMM_DB_MAC}
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
