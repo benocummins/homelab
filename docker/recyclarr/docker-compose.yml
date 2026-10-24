@@ -1,0 +1,18 @@
+services:
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr:8.8
+    container_name: recyclarr
+    user: 1000:1000
+    restart: unless-stopped
+    environment:
+      - TZ=America/New_York
+    volumes:
+      - /opt/docker/recyclarr/config:/config
+    networks:
+      lan:
+        ipv4_address: ${RECYCLARR_PRIVATE_IP}
+        mac_address: ${RECYCLARR_MAC}
+
+networks:
+  lan:
+    external: true
