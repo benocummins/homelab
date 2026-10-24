@@ -5,7 +5,7 @@ services:
     container_name: jellyfin
     volumes:
       - /opt/docker/jellyfin/config:/config
-      - /srv/media:/media
+      - /srv/media/data/media:/media
       - /cache/jellyfin:/cache
     environment:
       - PUID=1000
@@ -19,6 +19,12 @@ services:
         mac_address: ${JELLYFIN_MAC}
     restart: unless-stopped
     runtime: nvidia
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8096/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 90s
 
 networks:
   lan:
