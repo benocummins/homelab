@@ -23,9 +23,9 @@ services:
         mac_address: ${RECYCLARR_MAC}
 
 configs:
-  recyclar_sonarr:
+  recyclarr_sonarr:
     file: ./configs/sonarr.yml
-  recyclar_raddar:
+  recyclarr_raddar:
     file: ./configs/radarr.yml
 
 networks:
