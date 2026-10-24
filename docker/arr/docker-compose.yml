@@ -49,11 +49,11 @@ services:
     container_name: radarr
     volumes:
       - /opt/docker/radarr/config:/config
-      - /cache/downloads/complete:/downloads
-      - /srv/media/movies:/movies
+      - /srv/media/data:/data
     environment:
       - PUID=1000
       - PGID=1000
+      - UMASK=002
       - TZ=America/New_York
     networks:
       lan:
@@ -68,11 +68,11 @@ services:
         condition: service_healthy
     volumes:
       - /opt/docker/sabnzbd/config:/config
-      - /cache/downloads/complete:/downloads
-      - /cache/downloads/incomplete:/incomplete-downloads
+      - /srv/media/data:/data
     environment:
       - PUID=1000
       - PGID=1000
+      - UMASK=002
       - TZ=America/New_York
     network_mode: "service:gluetun"
     restart: unless-stopped
@@ -81,11 +81,11 @@ services:
     container_name: sonarr
     volumes:
       - /opt/docker/sonarr/config:/config
-      - /cache/downloads/complete:/downloads
-      - /srv/media/tv:/tv
+      - /srv/media/data:/data
     environment:
       - PUID=1000
       - PGID=1000
+      - UMASK=002
       - TZ=America/New_York
     networks:
       lan:
