@@ -1,0 +1,82 @@
+# yaml-language-server: $schema=https://schemas.recyclarr.dev/v8/config-schema.json
+sonarr:
+  sonarr-main:
+    base_url: !env_var SONARR_URL
+    api_key: !env_var SONARR_API_KEY
+
+    # One set of file-size limits per Sonarr, so only one type here.
+    quality_definition:
+      type: series
+
+    quality_profiles:
+      # 1 . Main profile, straight from TRaSH
+      - trash_id: 72dae194fc92bf828f32cde7744e51a1 # WEB-1080p
+        reset_unmatched_scores:
+          enabled: true
+
+      # 2. Anime: TRaSH scoring, Remux removed
+      - trash_id: 20e0fc959f1f1704bed501f23bdae76f # [Anime] Remux-1080p
+        name: Anime 1080p
+        reset_unmatched_scores:
+          enabled: true
+        upgrade:
+          allowed: true
+          until_quality: Bluray-1080p
+        qualities:
+          - name: Bluray-1080p
+          - name: WEB 1080p
+            qualities:
+              - WEBDL-1080p
+              - WEBRip-1080p
+          - name: Bluray-720p
+          - name: WEB 720p
+            qualities:
+              - WEBDL-720p
+              - WEBRip-720p
+
+      # 3. Old shows that only exist in SD. Accepts SD, upgrades if better appears.
+      - name: SD or better
+        upgrade:
+          allowed: true
+          until_quality: Bluray-1080p
+        qualities:
+          - name: Bluray-1080p
+          - name: WEB 1080p
+            qualities:
+              - WEBDL-1080p
+              - WEBRip-1080p
+          - name: HDTV-1080p
+          - name: Bluray-720p
+          - name: WEB 720p
+            qualities:
+              - WEBDL-720p
+              - WEBRip-720p
+          - name: HDTV-720p
+          - name: DVD
+          - name: WEB 480p
+            qualities:
+              - WEBDL-480p
+              - WEBRip-480p
+          - name: SDTV
+        # Only the two groups with decisions in them. Everything else syncs by default.
+    custom_formats:
+      # Penalize multi-language releases on the main profile only.
+      # Anime often only comes as MULTi/dual audio, so it is left alone.
+      - trash_ids:
+          - 7ba05c6e0e14e793538174c679126996 # MULTi
+        assign_scores_to:
+          - trash_id: 72dae194fc92bf828f32cde7744e51a1 # WEB-1080p
+            score: -100
+
+    custom_format_groups:
+      add:
+        - trash_id: 158188097a58d7687dee647e04af0da3 # Golden Rule HD (x265)
+          # To allow x265 releases, uncomment both lines:
+          # exclude:
+          #   - 47435ece6b99a0b477caf360e79ba0bb  # x265 (HD)
+          # select:
+          #   - 9b64dff695c2115facf1b6ea59c9bd07  # x265 (no HDR/DV)
+        - trash_id: 74aff4168620ed49dcc67e92b2c2a5b4 # Language Profiles
+          # To stop penalizing dubbed releases, uncomment:
+          # exclude:
+          #   - ae575f95ab639ba5d15f663bf019e3e8  # Language: Not Original
