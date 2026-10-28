@@ -19,20 +19,26 @@ kubeconfig
 .DS_Store
 
 
-#VSCode
+# VSCode
 .vscode/
 
-#Claude
+# Claude
 CLAUDE.md
 
 # Docker
 .env
 !.env.example
 
-# Terraform
+# Terraform 
 .terraform/
-terraform.tfstate
-terraform.tfstate.backup
+terraform.tfstate*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+*.tfvars
+*.tfvars.json
+.terraform.tfstate.lock.info
 
 # Ansible
 *.retry
