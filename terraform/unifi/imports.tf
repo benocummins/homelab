@@ -7,3 +7,8 @@ import {
 	to = unifi_network.kids
 	id = "name=Kids"
 }
+
+import {
+	to = unifi_network.iot
+	id = "name=IoT"
+}
