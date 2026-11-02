@@ -276,3 +276,74 @@ resource "unifi_network" "trusted" {
   timeouts                  = null
   vlan                      = 20
 }
+
+resource "unifi_network" "default" {
+  auto_scale    = false
+  dhcp_guarding = null
+  dhcp_relay    = null
+  dhcp_server = {
+    boot = {
+      enabled = false
+    }
+    conflict_checking = false
+    dns = {
+      enabled = false
+      servers = null
+    }
+    enabled         = true
+    gateway_enabled = false
+    leasetime       = "24h0m0s"
+    ntp = {
+      enabled = false
+      servers = null
+    }
+    start               = "10.17.1.6"
+    stop                = "10.17.1.254"
+    tftp_server         = null
+    time_offset_enabled = false
+    unifi_controller    = null
+    wins = {
+      addresses = null
+      enabled   = false
+    }
+    wpad_url = null
+  }
+  dhcp_v6_server   = null
+  domain_name      = "localdomain"
+  enabled          = true
+  firewall_zone_id = "6803f1e4226666603c56d24d"
+  gateway_type     = "default"
+  igmp_snooping    = false
+  internet_access  = true
+  ip_aliases       = null
+  ipv6 = {
+    aliases                   = null
+    client_address_assignment = "slaac"
+    interface_type            = "none"
+    pd = {
+      auto_prefixid_enabled = false
+      interface             = null
+      prefixid              = null
+      start                 = "::2"
+      stop                  = "::7d1"
+    }
+    ra = {
+      enabled            = true
+      preferred_lifetime = "4h0m0s"
+      priority           = "high"
+    }
+    static_subnet = null
+  }
+  lte_lan                   = false
+  multicast_dns             = true
+  name                      = "Default"
+  nat_outbound_ip_addresses = null
+  network_isolation         = false
+  purpose                   = "corporate"
+  setting_preference        = "manual"
+  site                      = "default"
+  subnet                    = "10.17.1.1/24"
+  third_party_gateway       = false
+  timeouts                  = null
+  vlan                      = null
+}
