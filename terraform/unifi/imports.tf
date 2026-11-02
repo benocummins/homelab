@@ -12,3 +12,8 @@ import {
   to = unifi_network.iot
   id = "name=IoT"
 }
+
+import {
+  to = unifi_network.trusted
+  id = "name=Trusted"
+}
