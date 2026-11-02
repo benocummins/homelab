@@ -2,9 +2,9 @@ terraform {
   required_version = "~> 1.17"
 
   required_providers {
-  	unifi = {
-  		source = "ubiquiti-community/unifi"
-  		version = "~> 0.60.0"
-  	}
+    unifi = {
+      source  = "ubiquiti-community/unifi"
+      version = "~> 0.60.0"
+    }
   }
 }
